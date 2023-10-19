@@ -1,0 +1,38 @@
+﻿@model RelationalCRUD.EF.tbl_Products
+
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>Products</h2>
+
+@using (Html.BeginForm("AddProducts", "Products", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.ProductsID)
+    <div class="container">
+        <div class="form-group">
+            <label>Name</label>
+            @Html.TextAreaFor(x => x.ProductsName, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+            <label>Price</label>
+            @Html.TextAreaFor(x => x.ProductsPrice, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+            <label>Category ID</label>
+            @Html.TextAreaFor(x => x.CatID, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Enter</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
+    </div>
+}

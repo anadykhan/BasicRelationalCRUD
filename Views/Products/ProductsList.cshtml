@@ -1,0 +1,36 @@
+﻿@model List<RelationalCRUD.EF.tbl_Products>
+
+
+@{
+    ViewBag.Title = "ProductsList";
+}
+
+<h2>ProductsList</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach(var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.ProductsName
+                    </td>
+                    <td>
+                        @item.ProductsPrice
+                    </td>
+                    <td>
+                        @item.tbl_Categories.CategoriesName
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Products", new {item.ProductsID, item.ProductsName, item.ProductsPrice, item.CatID})" class="btn btn-success">Edit</a>
+                        @Html.ActionLink("Delete", "DeleteProducts", "Products", new { id = item.ProductsID, @class="btn btn-danger" })
+                    </td>
+                </tr>
+            }
+</table>

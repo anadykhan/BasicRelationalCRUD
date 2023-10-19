@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_RelationalTablesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbl_Categories">
+    <Key>
+      <PropertyRef Name="CategoriesID" />
+    </Key>
+    <Property Name="CategoriesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoriesName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_Products" Relationship="Self.FK_tbl_Products_tbl_Categories" FromRole="tbl_Categories" ToRole="tbl_Products" />
+  </EntityType>
+  <EntityType Name="tbl_Products">
+    <Key>
+      <PropertyRef Name="ProductsID" />
+    </Key>
+    <Property Name="ProductsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductsName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ProductsPrice" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CatID" Type="Int32" />
+    <NavigationProperty Name="tbl_Categories" Relationship="Self.FK_tbl_Products_tbl_Categories" FromRole="tbl_Products" ToRole="tbl_Categories" />
+  </EntityType>
+  <Association Name="FK_tbl_Products_tbl_Categories">
+    <End Role="tbl_Categories" Type="Self.tbl_Categories" Multiplicity="0..1" />
+    <End Role="tbl_Products" Type="Self.tbl_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Categories">
+        <PropertyRef Name="CategoriesID" />
+      </Principal>
+      <Dependent Role="tbl_Products">
+        <PropertyRef Name="CatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="db_RelationalTablesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbl_Categories" EntityType="Self.tbl_Categories" />
+    <EntitySet Name="tbl_Products" EntityType="Self.tbl_Products" />
+    <AssociationSet Name="FK_tbl_Products_tbl_Categories" Association="Self.FK_tbl_Products_tbl_Categories">
+      <End Role="tbl_Categories" EntitySet="tbl_Categories" />
+      <End Role="tbl_Products" EntitySet="tbl_Products" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
